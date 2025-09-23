@@ -28,4 +28,10 @@ public class Empleado implements Serializable {
 				+ fechaDeAlta + ", departamento=" + departamento + ", salario=" + salario + "]";
 	}
 
+	public int getCodigo() {
+		return codigo;
+	}
+
+	
+
 }

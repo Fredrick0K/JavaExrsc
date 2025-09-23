@@ -17,36 +17,32 @@ import modelo.Empleado;
 
 public class AccesoEmpleado {
 
+	private static String RUTA_FICHERO = "\\data\\empleados.dat";
+
 	public static void escribirEmpleado(Empleado empleado) throws IOException {
 		ObjectOutputStream flujoSalida1 = null;
 		MyObjectOutputStream flujoSalida2 = null;
 		try {
-			File fichero = new File("Actividades_U1_BinarioSequen\\data\\empleados.dat");
+			File fichero = new File(RUTA_FICHERO);
 
 			if (fichero.exists()) {
 				flujoSalida2 = new MyObjectOutputStream(new FileOutputStream(fichero, true));
 				flujoSalida2.writeObject(empleado);
 			}
-			// Crear el fichero e insertar la pel�cula al principio del fichero.
+			// Crear el fichero e insertar la pelicula al principio del fichero.
 			else {
 				flujoSalida1 = new ObjectOutputStream(new FileOutputStream(fichero));
 				flujoSalida1.writeObject(empleado);
 			}
 
 		} finally {
-			try {
-				if (flujoSalida1 != null) {
-					flujoSalida1.close();
-				}
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
+
+			if (flujoSalida1 != null) {
+				flujoSalida1.close();
 			}
-			try {
-				if (flujoSalida2 != null) {
-					flujoSalida2.close();
-				}
-			} catch (IOException ioe) {
-				ioe.printStackTrace();
+
+			if (flujoSalida2 != null) {
+				flujoSalida2.close();
 			}
 		}
 	}
@@ -54,7 +50,7 @@ public class AccesoEmpleado {
 	public static ArrayList<String> leerFichero()
 			throws FileNotFoundException, StreamCorruptedException, IOException, EOFException, ClassNotFoundException {
 		ObjectInputStream flujoEntrada = null;
-		File fichero = new File("Actividades_U1_BinarioSequen\\data\\empleados.dat");
+		File fichero = new File(RUTA_FICHERO);
 		ArrayList<String> listaEmpleados = new ArrayList<String>();
 		try {
 			flujoEntrada = new ObjectInputStream(new FileInputStream(fichero));
@@ -74,4 +70,33 @@ public class AccesoEmpleado {
 		return listaEmpleados;
 	}
 
+	public static Empleado buscarPorCodigo(int codigoEmp) throws ClassNotFoundException, IOException {
+
+		// TODO Auto-generated method stub
+		// leer fichero con ObjectInputStream, declarar Empleado empleado,
+		ObjectInputStream flujoEntrada = null;
+		Empleado empleado = null;
+		try {
+			File fichero = new File(RUTA_FICHERO);
+			if (!fichero.exists()) {
+				return null;
+			}
+			try {
+				boolean encontrado = false;
+				while (!encontrado) {
+					Empleado emp = (Empleado) flujoEntrada.readObject();
+					if (emp.getCodigo() == codigoEmp) {
+						empleado = emp;
+						encontrado = true;
+					}
+				}
+			} catch (EOFException eof) {
+				System.out.println("Final del fichero alcanzado. No se encontraron coincidencias.");
+				eof.printStackTrace();
+			}
+		} finally {
+
+		}
+		return empleado;
+	}
 }

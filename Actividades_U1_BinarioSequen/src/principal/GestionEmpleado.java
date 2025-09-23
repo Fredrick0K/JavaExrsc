@@ -1,10 +1,12 @@
 package principal;
 
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.ObjectOutput;
 import java.io.StreamCorruptedException;
+import java.util.List;
 
 import acceso.AccesoEmpleado;
 import entrada.Teclado;
@@ -21,8 +23,20 @@ public class GestionEmpleado {
 
 	}
 
+	public static void escribirListaEmp(List<Empleado> listaEmopleado)
+			throws StreamCorruptedException, FileNotFoundException, EOFException, ClassNotFoundException, IOException {
+		int contador = 0;
+		for (String i : AccesoEmpleado.leerFichero()) {
+			System.out.print(i + " ");
+			contador++;
+		}
+		System.out.println("Se han consultado " + contador + " empleados");
+
+	}
+
 	public static void main(String[] args) {
-		int opcion;
+		int opcion, codigo;
+		Empleado empleado;
 
 		do {
 			escribirMenu();
@@ -38,10 +52,12 @@ public class GestionEmpleado {
 
 					int contador = 0;
 					try {
-						for (String i : AccesoEmpleado.leerFichero()) {
-							System.out.print(i + " ");
-							contador++;
+						if (AccesoEmpleado.leerFichero().isEmpty()) {
+							System.out.println("No hay empleados en el fichero.");
+						} else {
+
 						}
+
 						int size = AccesoEmpleado.leerFichero().size();
 						System.out.println(size);
 						System.out.print("\n");
@@ -57,29 +73,34 @@ public class GestionEmpleado {
 
 					break;
 				case 2: // Insertar empleado
-					try {
-						int codigo = Teclado.leerEntero("Codigo:");
+					codigo = Teclado.leerEntero("Codigo: ");
+					
+						int codigoEmp = Teclado.leerEntero("Codigo:");
+						try {
+							if(AccesoEmpleado.buscarPorCodigo(codigo) != null) {
+								System.out.println("Ya existe un man con este codigo.");
+							}	
+						}catch (ClassNotFoundException cnfe) {
+							System.out.println("Clase no encotrada");
+						}
+						
 						String nombre = Teclado.leerCadena("Nombre: ");
 						String apellido = Teclado.leerCadena("Apellido: ");
 						String fechaDeAlta = Teclado.leerCadena("Fecha De Alta: ");
 						String departamento = Teclado.leerCadena("Departamento: ");
 						double salario = Teclado.leerReal("Salario: ");
-						Empleado empleado = new Empleado(codigo, nombre, apellido, fechaDeAlta, departamento, salario);
+						empleado = new Empleado(codigoEmp, nombre, apellido, fechaDeAlta, departamento, salario);
 
 						AccesoEmpleado.escribirEmpleado(empleado);
-						System.out.println("\n");
-						System.out.println("Se ha añadido al fichero!");
-					} catch (Exception ex) {
-						ex.printStackTrace();
 					}
 
 					break;
 
+				}catch(IOException ioe) {
+					System.out.println("Ha ocurrido un error durante la E/S");
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
 			// no olvidar finally cerrando flujos
-		} while (opcion != 0);
+		
+		}while(opcion!=0);
 	}
 }
