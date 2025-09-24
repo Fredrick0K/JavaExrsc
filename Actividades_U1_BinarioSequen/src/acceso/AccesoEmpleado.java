@@ -17,7 +17,7 @@ import modelo.Empleado;
 
 public class AccesoEmpleado {
 
-	private static String RUTA_FICHERO = "\\data\\empleados.dat";
+	private static String RUTA_FICHERO = "Actividades_U1_BinarioSequen\\data\\empleados.dat";
 
 	public static void escribirEmpleado(Empleado empleado) throws IOException {
 		ObjectOutputStream flujoSalida1 = null;
@@ -71,31 +71,29 @@ public class AccesoEmpleado {
 	}
 
 	public static Empleado buscarPorCodigo(int codigoEmp) throws ClassNotFoundException, IOException {
-
-		// TODO Auto-generated method stub
-		// leer fichero con ObjectInputStream, declarar Empleado empleado,
 		ObjectInputStream flujoEntrada = null;
 		Empleado empleado = null;
+		File fichero = new File(RUTA_FICHERO);
+		if (!fichero.exists()) {
+			return null;
+		}
 		try {
-			File fichero = new File(RUTA_FICHERO);
-			if (!fichero.exists()) {
-				return null;
-			}
-			try {
-				boolean encontrado = false;
-				while (!encontrado) {
+			flujoEntrada = new ObjectInputStream(new FileInputStream(fichero));
+			while (true) {
+				try {
 					Empleado emp = (Empleado) flujoEntrada.readObject();
 					if (emp.getCodigo() == codigoEmp) {
 						empleado = emp;
-						encontrado = true;
+						break;
 					}
+				} catch (EOFException eof) {
+					break;
 				}
-			} catch (EOFException eof) {
-				System.out.println("Final del fichero alcanzado. No se encontraron coincidencias.");
-				eof.printStackTrace();
 			}
 		} finally {
-
+			if (flujoEntrada != null) {
+				flujoEntrada.close();
+			}
 		}
 		return empleado;
 	}
