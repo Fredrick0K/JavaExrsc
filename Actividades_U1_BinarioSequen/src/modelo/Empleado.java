@@ -7,11 +7,11 @@ public class Empleado implements Serializable {
 	private int codigo;
 	private String nombre;
 	private String apellido;
-	private String fechaDeAlta;
+	private Fecha fechaDeAlta;
 	private String departamento;
 	private double salario;
 
-	public Empleado(int codigo, String nombre, String apellido, String fechaDeAlta, String departamento,
+	public Empleado(int codigo, String nombre, String apellido, Fecha fechaDeAlta, String departamento,
 			double salario) {
 
 		this.codigo = codigo;
@@ -31,6 +31,47 @@ public class Empleado implements Serializable {
 	public int getCodigo() {
 		return codigo;
 	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public Fecha getFechaDeAlta() {
+		return fechaDeAlta;
+	}
+
+	public void setFechaDeAlta(Fecha fechaDeAlta) {
+		this.fechaDeAlta = fechaDeAlta;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public double getSalario() {
+		return salario;
+	}
+
+	public void setSalario(double salario) {
+		this.salario = salario;
+	}
+	
 
 	
 

@@ -7,17 +7,19 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.StreamCorruptedException;
-import java.io.WriteAbortedException;
 import java.util.ArrayList;
 
 import modelo.Empleado;
 
 public class AccesoEmpleado {
 
-	private static String RUTA_FICHERO = "Actividades_U1_BinarioSequen\\data\\empleados.dat";
+	private static String RUTA_FICHERO = "data/empleados.dat";
+	private static String RUTA_FICHERO_VS = "Actividades_U1_BinarioSequen\\data\\empleados.dat";
+	private static String RUTA_FICHERO_TEMP = "data/temporal.dat";
+	private static String RUTA_FICHERO_TEMO_VS = "Actividades_U1_BinarioSequen\\data\\temporal.dat";
 
 	public static void escribirEmpleado(Empleado empleado) throws IOException {
 		ObjectOutputStream flujoSalida1 = null;
@@ -97,4 +99,91 @@ public class AccesoEmpleado {
 		}
 		return empleado;
 	}
+
+	public boolean actualizarEmpleado(int codigo, Empleado nuevoEmpleado)
+			throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream flujoLectura = null;
+		ObjectOutputStream flujoEscritura = null;
+
+		boolean actualizado = false;
+		try {
+			File ficheroEmpleados = new File(RUTA_FICHERO);
+			flujoLectura = new ObjectInputStream(new FileInputStream(ficheroEmpleados));
+
+			File ficheroTemp = new File(RUTA_FICHERO_TEMP);
+			flujoEscritura = new ObjectOutputStream(new FileOutputStream(ficheroTemp));
+			boolean finalFichero = false;
+			while (!finalFichero) {
+				try {
+					Empleado empleado = (Empleado) flujoLectura.readObject();
+					if (empleado.getCodigo() == codigo) {
+						empleado.setNombre(nuevoEmpleado.getNombre());
+						empleado.setApellido(nuevoEmpleado.getApellido());
+						empleado.setFechaDeAlta(nuevoEmpleado.getFechaDeAlta());
+						actualizado = true;
+					}
+					flujoEscritura.writeObject(empleado);
+				} catch (EOFException eof) {
+					finalFichero = true;
+					// TODO: handle exception
+				}
+			}
+
+			flujoEscritura.close();
+			flujoLectura.close();
+			ficheroEmpleados.delete();
+			ficheroTemp.renameTo(ficheroEmpleados);
+		} finally {
+			if (flujoEscritura != null) {
+				flujoEscritura.close();
+			}
+			if (flujoLectura != null) {
+				flujoLectura.close();
+			}
+		}
+		return actualizado;
+	}
+
+	public static boolean eliminarPorCodigo(int codigo) throws FileNotFoundException, IOException, ClassNotFoundException {
+		ObjectInputStream flujoLectura = null;
+		ObjectOutputStream flujoSalida = null;
+		boolean eliminado = false;
+		try {
+			File ficheroEmpleados = new File(RUTA_FICHERO);
+			flujoLectura = new ObjectInputStream(new FileInputStream(ficheroEmpleados));
+			File ficheroTemp = new File(RUTA_FICHERO_TEMP);
+			flujoSalida = new ObjectOutputStream(new FileOutputStream(ficheroTemp));
+
+			boolean finalFichero = false;
+			while (!finalFichero) {
+				try {
+
+					Empleado empleado = (Empleado) flujoLectura.readObject();
+					if (empleado.getCodigo() == codigo) {
+						eliminado = true;
+
+					} else {
+						flujoSalida.writeObject(empleado);
+					}
+				} catch (EOFException eof) {
+					finalFichero = true;
+				}
+			}
+			flujoLectura.close();
+			flujoSalida.close();
+			ficheroEmpleados.delete();
+			ficheroTemp.renameTo(ficheroEmpleados);
+
+		} finally {
+			if (flujoLectura != null) {
+				flujoLectura.close();
+			}
+			if (flujoSalida != null) {
+				flujoSalida.close();
+			}
+
+		}
+		return eliminado;
+	}
+
 }
