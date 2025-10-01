@@ -1,12 +1,12 @@
 package modelo;
 
-import java.io.Serializable;
-
-public class Fecha implements Serializable{
+public class Fecha {
 
 	private int dia;
 	private int mes;
 	private int anio;
+	
+	public static final int TAMANYO_FECHA = 12; //4+4+4 son INT
 
 	/**
 	 * Crea una fecha a partir de un dia, un mes y un anio.
