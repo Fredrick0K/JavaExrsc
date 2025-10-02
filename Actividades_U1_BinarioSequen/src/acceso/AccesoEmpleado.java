@@ -19,13 +19,13 @@ public class AccesoEmpleado {
 	private static String RUTA_FICHERO = "data/empleados.dat";
 	private static String RUTA_FICHERO_VS = "Actividades_U1_BinarioSequen\\data\\empleados.dat";
 	private static String RUTA_FICHERO_TEMP = "data/temporal.dat";
-	private static String RUTA_FICHERO_TEMO_VS = "Actividades_U1_BinarioSequen\\data\\temporal.dat";
+	private static String RUTA_FICHERO_TEMP_VS = "Actividades_U1_BinarioSequen\\data\\temporal.dat";
 
 	public static void escribirEmpleado(Empleado empleado) throws IOException {
 		ObjectOutputStream flujoSalida1 = null;
 		MyObjectOutputStream flujoSalida2 = null;
 		try {
-			File fichero = new File(RUTA_FICHERO);
+			File fichero = new File(RUTA_FICHERO_VS);
 
 			if (fichero.exists()) {
 				flujoSalida2 = new MyObjectOutputStream(new FileOutputStream(fichero, true));
@@ -52,7 +52,7 @@ public class AccesoEmpleado {
 	public static ArrayList<String> leerFichero()
 			throws FileNotFoundException, StreamCorruptedException, IOException, EOFException, ClassNotFoundException {
 		ObjectInputStream flujoEntrada = null;
-		File fichero = new File(RUTA_FICHERO);
+		File fichero = new File(RUTA_FICHERO_VS);
 		ArrayList<String> listaEmpleados = new ArrayList<String>();
 		try {
 			flujoEntrada = new ObjectInputStream(new FileInputStream(fichero));
@@ -75,7 +75,7 @@ public class AccesoEmpleado {
 	public static Empleado buscarPorCodigo(int codigoEmp) throws ClassNotFoundException, IOException {
 		ObjectInputStream flujoEntrada = null;
 		Empleado empleado = null;
-		File fichero = new File(RUTA_FICHERO);
+		File fichero = new File(RUTA_FICHERO_VS);
 		if (!fichero.exists()) {
 			return null;
 		}
@@ -100,17 +100,17 @@ public class AccesoEmpleado {
 		return empleado;
 	}
 
-	public boolean actualizarEmpleado(int codigo, Empleado nuevoEmpleado)
+	public static boolean actualizarEmpleado(int codigo, Empleado nuevoEmpleado)
 			throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream flujoLectura = null;
 		ObjectOutputStream flujoEscritura = null;
 
 		boolean actualizado = false;
 		try {
-			File ficheroEmpleados = new File(RUTA_FICHERO);
+			File ficheroEmpleados = new File(RUTA_FICHERO_VS);
 			flujoLectura = new ObjectInputStream(new FileInputStream(ficheroEmpleados));
 
-			File ficheroTemp = new File(RUTA_FICHERO_TEMP);
+			File ficheroTemp = new File(RUTA_FICHERO_TEMP_VS);
 			flujoEscritura = new ObjectOutputStream(new FileOutputStream(ficheroTemp));
 			boolean finalFichero = false;
 			while (!finalFichero) {
@@ -149,9 +149,9 @@ public class AccesoEmpleado {
 		ObjectOutputStream flujoSalida = null;
 		boolean eliminado = false;
 		try {
-			File ficheroEmpleados = new File(RUTA_FICHERO);
+			File ficheroEmpleados = new File(RUTA_FICHERO_VS);
 			flujoLectura = new ObjectInputStream(new FileInputStream(ficheroEmpleados));
-			File ficheroTemp = new File(RUTA_FICHERO_TEMP);
+			File ficheroTemp = new File(RUTA_FICHERO_TEMP_VS);
 			flujoSalida = new ObjectOutputStream(new FileOutputStream(ficheroTemp));
 
 			boolean finalFichero = false;

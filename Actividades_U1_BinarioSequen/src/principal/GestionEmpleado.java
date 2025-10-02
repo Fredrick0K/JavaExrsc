@@ -95,17 +95,22 @@ public class GestionEmpleado {
 					}
 					break;
 				case 3:
-
 //					Declarar codigo, nombre fechaAlta empleado
-					codigo = Teclado.leerEntero("");
-					nombre = Teclado.leerCadena("");
-					apellido = Teclado.leerCadena("");
+					codigo = Teclado.leerEntero("Codigo: ");
+					nombre = Teclado.leerCadena("Nombre: ");
+					apellido = Teclado.leerCadena("Apellido: ");
 					fechaDeAlta1 = Consola.leerFecha("Fecha de alta: ");
 					empleado = new Empleado(0, nombre, apellido, fechaDeAlta1, null, 0.0);
+					if(AccesoEmpleado.actualizarEmpleado(codigo, empleado)){
+						System.out.println("Se ha actualizado el empleado con codigo: " + codigo);
+					}
+
 					break;
 				case 4:
 					codigo = Teclado.leerEntero("Codigo: ");
-					AccesoEmpleado.eliminarPorCodigo(codigo);
+					if(AccesoEmpleado.eliminarPorCodigo(codigo)){
+						System.out.println("Empleado con codigo" + codigo + " eliminado.");
+					}
 					break;
 
 				}
