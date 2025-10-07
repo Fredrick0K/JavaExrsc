@@ -13,13 +13,13 @@ public class Producto {
 	// Constantes
 	public static final int LONGITUD_NOMBRE = 15;
 	public static final int LONGITUD_CATEGORIA = 20;
-	public static final int TAMANYO_REGISTRO = LONGITUD_NOMBRE * 2 + LONGITUD_CATEGORIA * 2 + Fecha.TAMANYO_FECHA + 16;
+	public static final int TAMANYO_REGISTRO = LONGITUD_NOMBRE * 2 + LONGITUD_CATEGORIA * 2 + Fecha.TAMANYO_FECHA
+			+ 16 /* <---- sumando tamaño de los Double y INT */;
 
-	public Producto(int codigo, String nombre, String categoria, 
-			Fecha fechaModificacion, int cantidad, double precio) {
+	public Producto(int codigo, String nombre, String categoria, Fecha fechaModificacion, int cantidad, double precio) {
 
 		this.codigo = codigo;
-		
+
 		StringBuffer bufferCadena = new StringBuffer(nombre);
 		bufferCadena.setLength(LONGITUD_NOMBRE);
 		this.nombre = bufferCadena.toString();
@@ -35,9 +35,12 @@ public class Producto {
 
 	@Override
 	public String toString() {
-		return "Producto [codigo=" + codigo + ", nombre=" + nombre.trim() + ", categoria=" + categoria.trim()
-				+ ", fechaModificacion=" + fechaModificacion.toString() + ", cantidad=" + cantidad + ", precio="
-				+ String.format("%.2f", precio) + "]";
+		return "Producto [codigo=" + codigo + ", " + 
+				"nombre=" + nombre.trim() + ", " 
+				+ "categoria=" + categoria.trim()
+				+ ", fechaModificacion=" + fechaModificacion.toString() + ", " 
+				+"cantidad=" + cantidad + ", "
+				+ "precio=" + String.format("%.2f", precio) + "]";
 	}
 
 	public int getCodigo() {
@@ -46,6 +49,10 @@ public class Producto {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public void setCodigo(int codigo) {
+		this.codigo = codigo;
 	}
 
 	public String getCategoria() {

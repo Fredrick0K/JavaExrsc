@@ -3,13 +3,20 @@ package acceso;
 import java.io.File;
 import java.io.IOException;
 import java.io.RandomAccessFile;
-
+import java.util.ArrayList;
+import java.util.List;
 import modelo.Fecha;
 import modelo.Producto;
 
 public class AccesoProducto {
 //Insertar, Actualizar con codigo, leer TODO, Leer con codigo, eliminar
 
+	private static final String FICHERO_VS = "Actividad_U1_BinarioDirect\\\\data\\\\producto.dat";
+	private static final String FICHERO = "data/productos.dat";
+
+	/*
+	 * int dia = flujoLectura.readInt fecha new fecha(dia, mes, anyo)
+	 */
 	public static Producto leerProducto(RandomAccessFile flujoEntrada) throws IOException {
 
 		int codigo = flujoEntrada.readInt();
@@ -19,6 +26,7 @@ public class AccesoProducto {
 		}
 
 		String nombre = new String(vectorCaracteres);
+
 		vectorCaracteres = new char[Producto.LONGITUD_CATEGORIA];
 		for (int posicion = 0; posicion < vectorCaracteres.length; posicion++) {
 			vectorCaracteres[posicion] = flujoEntrada.readChar();
@@ -31,7 +39,27 @@ public class AccesoProducto {
 		double precio = flujoEntrada.readDouble();
 		Producto producto = new Producto(codigo, nombre, categoria, fechaModificacion, cantidad, precio);
 		return producto;
-		
+
+	}
+
+	public static List<Producto> leerTodos() throws IOException {
+		RandomAccessFile flujoLectura = null;
+		List<Producto> listaProductos = new ArrayList<Producto>();
+		try {
+			flujoLectura = new RandomAccessFile(FICHERO, "r");
+			flujoLectura.seek(0);
+			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
+				Producto producto = leerProducto(flujoLectura);
+				if (producto.getCodigo() > 0) {
+					listaProductos.add(producto);
+				}
+			}
+		} finally {
+			if (flujoLectura != null) {
+				flujoLectura.close();
+			}
+		}
+		return listaProductos;
 	}
 
 	public static boolean escribirProducto(RandomAccessFile flujoSalida, Producto producto) throws IOException {
@@ -40,31 +68,60 @@ public class AccesoProducto {
 			return false;
 		}
 
-		File file = new File("Actividad_U1_BinarioDirect\\data\\producto.dat");
+		File file = new File(FICHERO);
 		flujoSalida = new RandomAccessFile(file, "rw");
 		int tamanyoFichero = (int) flujoSalida.length();
 
+		int codigo = (int) (tamanyoFichero / Producto.TAMANYO_REGISTRO) + 1;
+		producto.setCodigo(codigo);
+
 		flujoSalida.seek(tamanyoFichero);
 		flujoSalida.writeInt(producto.getCodigo());
-
-		String nombre = producto.getNombre();
-		for (int i = 0; i < Producto.LONGITUD_NOMBRE; i++) {
-			char c = i < nombre.length() ? nombre.charAt(i) : ' ';
-			flujoSalida.writeChar(c);
-		}
-
-		String categoria = producto.getCategoria();
-		for (int i = 0; i < Producto.LONGITUD_CATEGORIA; i++) {
-			char c = i < categoria.length() ? categoria.charAt(i) : ' ';
-			flujoSalida.writeChar(c);
-		}
-
-		flujoSalida.writeBytes(producto.getFechaModificacion().toString() + "\n");
-		flujoSalida.writeInt(producto.getCantidad());
-		flujoSalida.writeDouble(producto.getPrecio());
-
+		escribeProducto(producto, flujoSalida);
 		return true;
 	}
 
-   
+	private static void escribeProducto(Producto producto, RandomAccessFile flujoEscritura) throws IOException {
+		flujoEscritura.writeInt(producto.getCodigo());
+		flujoEscritura.writeChars(producto.getNombre());
+		flujoEscritura.writeChars(producto.getCategoria());
+		escribirFecha(producto.getFechaModificacion(), flujoEscritura);
+		flujoEscritura.writeInt(producto.getCantidad());
+		flujoEscritura.writeDouble(producto.getPrecio());
+
+	}
+
+	private static void escribirFecha(Fecha fecha, RandomAccessFile flujoEscritura) throws IOException {
+		flujoEscritura.writeInt(fecha.getDia());
+		flujoEscritura.writeInt(fecha.getMes());
+		flujoEscritura.writeInt(fecha.getAnio());
+
+	}
+
 }
+
+//String nombre = producto.getNombre();
+//for (int i = 0; i < Producto.LONGITUD_NOMBRE; i++) {
+//	char c = i < nombre.length() ? nombre.charAt(i) : ' ';
+//	flujoSalida.writeChar(c);
+//}
+//
+//String categoria = producto.getCategoria();
+//for (int i = 0; i < Producto.LONGITUD_CATEGORIA; i++) {
+//	char c = i < categoria.length() ? categoria.charAt(i) : ' ';
+//	flujoSalida.writeChar(c);
+//}
+//
+//flujoSalida.writeBytes(producto.getFechaModificacion().toString() + "\n");
+//flujoSalida.writeInt(producto.getCantidad());
+//flujoSalida.writeDouble(producto.getPrecio());
+
+/* 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * */

@@ -6,7 +6,7 @@ public class Fecha {
 	private int mes;
 	private int anio;
 	
-	public static final int TAMANYO_FECHA = 12; //4+4+4 son INT
+	public static final int TAMANYO_FECHA = 12; //4+4+4 cuz int is 4 bytes
 
 	/**
 	 * Crea una fecha a partir de un dia, un mes y un anio.
