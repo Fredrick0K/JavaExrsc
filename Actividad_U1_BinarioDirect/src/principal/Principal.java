@@ -8,6 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Principal {
 	private static final String FICHERO_VS = "Actividad_U1_BinarioDirect\\\\data\\\\producto.dat";
@@ -18,7 +20,7 @@ public class Principal {
 		System.out.println();
 		System.out.println("0 - Salir.");
 		System.out.println("1 - Consultar todos los productos.");
-		System.out.println("2 - Consultar producto por ID.");
+		System.out.println("2 - Consultar producto por codigo.");
 		System.out.println("3 - Insertar nuevo producto en el fichero.");
 		System.out.println("4 - Actualizar precio, cantidad y fecha " + "de modificacion.");
 		System.out.println("5 - Eliminar producto por codigo.");
@@ -38,6 +40,7 @@ public class Principal {
 				System.out.println("Saliendo...");
 				break;
 			case 1:
+				List<Producto> listaProductos = new ArrayList<Producto>();
 				try {
 					File fichero = new File(FICHERO);
 					flujoEntrada = new RandomAccessFile(fichero, "r");
@@ -47,8 +50,8 @@ public class Principal {
 					while (flujoEntrada.getFilePointer() < flujoEntrada.length()) {
 						Producto producto = AccesoProducto.leerProducto(flujoEntrada);
 						if (producto.getCodigo() > 0) {
-							System.out.println(producto.toString());
-							contador++;
+						System.out.println(listaProductos.toString()); 
+							contador ++;
 						}
 					}
 					System.out.println(contador);
@@ -70,6 +73,7 @@ public class Principal {
 				}
 				break;
 			case 2:
+				
 				break;
 			case 3:
 				/* int codigo = Teclado.leerEntero("Introduzca el codigo del producto: "); */
@@ -81,8 +85,6 @@ public class Principal {
 				double precio = Teclado.leerReal("Introduzca el precio del producto: ");
 				Producto producto = new Producto(0, nombre, categoria, fechaModificacion, cantidad, precio);
 				try {
-					File fichero = new File(FICHERO);
-					flujoEntrada = new RandomAccessFile(fichero, "rw");
 					AccesoProducto.escribirProducto(flujoEntrada, producto);
 					System.out.println("Se ha escrito un producto en el fichero binario.");
 				} catch (IOException ioe) {

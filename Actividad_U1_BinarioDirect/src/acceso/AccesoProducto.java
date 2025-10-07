@@ -97,6 +97,37 @@ public class AccesoProducto {
 		flujoEscritura.writeInt(fecha.getAnio());
 
 	}
+	
+	public static List<Producto> consultarPorCode(int codigo) throws IOException{
+		RandomAccessFile flujoLectura = null;
+		List<Producto> listaProductos = new ArrayList<Producto>();
+		Producto producto = null;
+		try {
+			flujoLectura = new RandomAccessFile(FICHERO, "r");
+			int posicio = (codigo - 1) * Producto.TAMANYO_REGISTRO;
+			flujoLectura.seek(0);
+			if(posicio >= 0 && posicio < flujoLectura.length()) {
+				flujoLectura.seek(posicio);
+				Producto prod = leerProducto(flujoLectura);
+				if(prod.getCodigo() > 0) {
+					producto = prod;
+				}
+			}
+				
+			
+//			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
+//				Producto producto = leerProducto(flujoLectura);
+//				if (producto.getCodigo() == codigo && codigo != 0 && producto.getCodigo() != 0) {
+//					listaProductos.add(producto);
+//				}
+			
+		} finally {
+			if (flujoLectura != null) {
+				flujoLectura.close();
+			}
+		}
+		return listaProductos;
+	}
 
 }
 
