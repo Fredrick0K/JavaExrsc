@@ -9,7 +9,7 @@ import modelo.Producto;
 public class AccesoProducto {
 //Insertar, Actualizar con codigo, leer TODO, Leer con codigo, eliminar
 
-	private static Producto leerProducto(RandomAccessFile flujoEntrada) throws IOException {
+	public static Producto leerProducto(RandomAccessFile flujoEntrada) throws IOException {
 
 		int codigo = flujoEntrada.readInt();
 		char[] vectorCaracteres = new char[Producto.LONGITUD_NOMBRE];
@@ -24,11 +24,14 @@ public class AccesoProducto {
 		}
 
 		String categoria = new String(vectorCaracteres);
-		Fecha fechaModificacion = flujoEntrada.readLine();
+		String fechaStr = flujoEntrada.readLine();
+		Fecha fechaModificacion = new Fecha(fechaStr);
 		int cantidad = flujoEntrada.readInt();
 		double precio = flujoEntrada.readDouble();
-
-		Producto producto = new Producto(codigo, nombre, categoria, null, cantidad, precio);
+		Producto producto = new Producto(codigo, nombre, categoria, fechaModificacion, cantidad, precio);
 		return producto;
+		
 	}
+
+   
 }
