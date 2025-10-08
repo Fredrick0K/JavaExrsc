@@ -97,8 +97,8 @@ public class AccesoProducto {
 		flujoEscritura.writeInt(fecha.getAnio());
 
 	}
-	
-	public static List<Producto> consultarPorCode(int codigo) throws IOException{
+
+	public static List<Producto> consultarPorCode(int codigo) throws IOException {
 		RandomAccessFile flujoLectura = null;
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		Producto producto = null;
@@ -106,27 +106,78 @@ public class AccesoProducto {
 			flujoLectura = new RandomAccessFile(FICHERO, "r");
 			int posicio = (codigo - 1) * Producto.TAMANYO_REGISTRO;
 			flujoLectura.seek(0);
-			if(posicio >= 0 && posicio < flujoLectura.length()) {
+			if (posicio >= 0 && posicio < flujoLectura.length()) {
 				flujoLectura.seek(posicio);
 				Producto prod = leerProducto(flujoLectura);
-				if(prod.getCodigo() > 0) {
+				if (prod.getCodigo() > 0) {
 					producto = prod;
 				}
 			}
-				
-			
+
 //			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
 //				Producto producto = leerProducto(flujoLectura);
 //				if (producto.getCodigo() == codigo && codigo != 0 && producto.getCodigo() != 0) {
 //					listaProductos.add(producto);
 //				}
-			
+
 		} finally {
 			if (flujoLectura != null) {
 				flujoLectura.close();
 			}
 		}
 		return listaProductos;
+	}
+
+	public static boolean eliminarPorCode(int codigo) throws IOException {
+		boolean eliminado = false;
+		RandomAccessFile flujoReadyWrite = null;
+
+		try {
+			flujoReadyWrite = new RandomAccessFile(FICHERO, "rw");
+			int posicion = (codigo - 1) * Producto.TAMANYO_REGISTRO;
+			if (posicion >= 0 && posicion < flujoReadyWrite.length()) {
+				flujoReadyWrite.seek(posicion);
+				Producto producto = leerProducto(flujoReadyWrite);
+				if (producto.getCodigo() > 0) {
+					flujoReadyWrite.seek(posicion);
+					flujoReadyWrite.writeInt(0);
+					eliminado = true;
+				}
+			}
+
+		} finally {
+			if (flujoReadyWrite != null) {
+				flujoReadyWrite.close();
+			}
+		}
+
+		return eliminado;
+	}
+
+	public static boolean actualizarPorCode(int codigo, Producto nuevoProducto) throws IOException {
+		boolean actualizado = false;
+		RandomAccessFile flujoReadNWrite = null;
+		try {
+			flujoReadNWrite = new RandomAccessFile(FICHERO, "rw");
+			int posicion = (codigo - 1) * Producto.TAMANYO_REGISTRO;
+			if (posicion >= 0 && posicion < flujoReadNWrite.length()) {
+				flujoReadNWrite.seek(posicion);
+				Producto producto = leerProducto(flujoReadNWrite);
+				if (producto.getCodigo() > 0) {
+					producto.setFechaModificacion(nuevoProducto.getFechaModificacion());
+					producto.setCantidad(nuevoProducto.getCantidad());
+					producto.setPrecio(nuevoProducto.getPrecio());
+					escribeProducto(producto, flujoReadNWrite);
+					actualizado = true;
+				}
+
+			}
+		} finally {
+			if (flujoReadNWrite != null) {
+				flujoReadNWrite.close();
+			}
+		}
+		return actualizado;
 	}
 
 }

@@ -4,6 +4,8 @@ import acceso.AccesoProducto;
 import entrada.Teclado;
 import modelo.Fecha;
 import modelo.Producto;
+
+import java.io.Console;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Principal {
-	private static final String FICHERO_VS = "Actividad_U1_BinarioDirect\\\\data\\\\producto.dat";
-	private static final String FICHERO = "data/producto.dat";
+	private static final String FICHERO_VS = "Actividad_U1_BinarioDirect\\data\\producto.dat";
+	private static final String FICHERO = "data/productos.dat";
 
 	private static void escribirMenu() {
 
@@ -22,7 +24,7 @@ public class Principal {
 		System.out.println("1 - Consultar todos los productos.");
 		System.out.println("2 - Consultar producto por codigo.");
 		System.out.println("3 - Insertar nuevo producto en el fichero.");
-		System.out.println("4 - Actualizar precio, cantidad y fecha " + "de modificacion.");
+		System.out.println("4 - Actualizar precio, cantidad y fecha de modificacion.");
 		System.out.println("5 - Eliminar producto por codigo.");
 
 	}
@@ -50,8 +52,8 @@ public class Principal {
 					while (flujoEntrada.getFilePointer() < flujoEntrada.length()) {
 						Producto producto = AccesoProducto.leerProducto(flujoEntrada);
 						if (producto.getCodigo() > 0) {
-						System.out.println(listaProductos.toString()); 
-							contador ++;
+							System.out.println(listaProductos.toString());
+							contador++;
 						}
 					}
 					System.out.println(contador);
@@ -73,7 +75,17 @@ public class Principal {
 				}
 				break;
 			case 2:
-				
+				int codigo = Teclado.leerEntero("Codigo: ");
+				try {
+					List<Producto> listaProducto = null;
+					listaProducto = AccesoProducto.consultarPorCode(codigo);
+
+					System.out.println(listaProducto.toString());
+					AccesoProducto.consultarPorCode(codigo);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 3:
 				/* int codigo = Teclado.leerEntero("Introduzca el codigo del producto: "); */
@@ -102,8 +114,25 @@ public class Principal {
 				}
 				break;
 			case 4:
+				codigo = Teclado.leerEntero("");
+				fechaModificacion = Consola.leerFecha("Fecha: ");
+				cantidad = Teclado.leerEntero("");
+				precio = Teclado.leerReal("");
+				producto = new Producto(0, "", "", fechaModificacion, cantidad, precio);
 				break;
 			case 5:
+
+				codigo = Teclado.leerEntero("Codigo: ");
+				try {
+					if (AccesoProducto.eliminarPorCode(codigo)) {
+						System.out.println("Se ha eliminado el producto con codigo " + codigo);
+					}else {
+						System.out.println("Producto Invalido.");
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 
 			}

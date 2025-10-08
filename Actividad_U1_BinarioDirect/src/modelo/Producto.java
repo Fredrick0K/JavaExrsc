@@ -67,6 +67,18 @@ public class Producto {
 		return cantidad;
 	}
 
+	public void setFechaModificacion(Fecha fechaModificacion) {
+		this.fechaModificacion = fechaModificacion;
+	}
+
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public void setPrecio(double precio) {
+		this.precio = precio;
+	}
+
 	public double getPrecio() {
 		return precio;
 	}
