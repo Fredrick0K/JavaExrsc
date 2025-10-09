@@ -17,7 +17,7 @@ public class AccesoProducto {
 	/*
 	 * int dia = flujoLectura.readInt fecha new fecha(dia, mes, anyo)
 	 */
-	public static Producto leerProducto(RandomAccessFile flujoEntrada) throws IOException {
+	public static Producto leerFichero(RandomAccessFile flujoEntrada) throws IOException {
 
 		int codigo = flujoEntrada.readInt();
 		char[] vectorCaracteres = new char[Producto.LONGITUD_NOMBRE];
@@ -49,7 +49,7 @@ public class AccesoProducto {
 			flujoLectura = new RandomAccessFile(FICHERO, "r");
 			flujoLectura.seek(0);
 			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
-				Producto producto = leerProducto(flujoLectura);
+				Producto producto = leerFichero(flujoLectura);
 				if (producto.getCodigo() > 0) {
 					listaProductos.add(producto);
 				}
@@ -108,7 +108,7 @@ public class AccesoProducto {
 			flujoLectura.seek(0);
 			if (posicio >= 0 && posicio < flujoLectura.length()) {
 				flujoLectura.seek(posicio);
-				Producto prod = leerProducto(flujoLectura);
+				Producto prod = leerFichero(flujoLectura);
 				if (prod.getCodigo() > 0) {
 					producto = prod;
 				}
@@ -116,7 +116,7 @@ public class AccesoProducto {
 
 //			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
 //				Producto producto = leerProducto(flujoLectura);
-//				if (producto.getCodigo() == codigo && codigo != 0 && producto.getCodigo() != 0) {
+//				if (producto.getCodigo()) {
 //					listaProductos.add(producto);
 //				}
 
@@ -125,6 +125,33 @@ public class AccesoProducto {
 				flujoLectura.close();
 			}
 		}
+		return listaProductos;
+	}
+
+	public static List<Producto> consultarPorPrecio(int precioMin, int precioMax) throws IOException {
+		RandomAccessFile flujoLectura = null;
+		List<Producto> listaProductos = new ArrayList<Producto>();
+
+		try {
+
+			flujoLectura = new RandomAccessFile(FICHERO, "r");
+			flujoLectura.seek(0);
+			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
+				Producto prod = leerFichero(flujoLectura);
+				if (prod.getCodigo() > 0) {
+					if (prod.getPrecio() <= precioMax && prod.getPrecio() >= precioMin) {
+
+						listaProductos.add(prod);
+					}
+				}
+			}
+
+		} finally {
+			if (flujoLectura != null) {
+				flujoLectura.close();
+			}
+		}
+
 		return listaProductos;
 	}
 
@@ -137,7 +164,7 @@ public class AccesoProducto {
 			int posicion = (codigo - 1) * Producto.TAMANYO_REGISTRO;
 			if (posicion >= 0 && posicion < flujoReadyWrite.length()) {
 				flujoReadyWrite.seek(posicion);
-				Producto producto = leerProducto(flujoReadyWrite);
+				Producto producto = leerFichero(flujoReadyWrite);
 				if (producto.getCodigo() > 0) {
 					flujoReadyWrite.seek(posicion);
 					flujoReadyWrite.writeInt(0);
@@ -162,7 +189,7 @@ public class AccesoProducto {
 			int posicion = (codigo - 1) * Producto.TAMANYO_REGISTRO;
 			if (posicion >= 0 && posicion < flujoReadNWrite.length()) {
 				flujoReadNWrite.seek(posicion);
-				Producto producto = leerProducto(flujoReadNWrite);
+				Producto producto = leerFichero(flujoReadNWrite);
 				if (producto.getCodigo() > 0) {
 					producto.setFechaModificacion(nuevoProducto.getFechaModificacion());
 					producto.setCantidad(nuevoProducto.getCantidad());

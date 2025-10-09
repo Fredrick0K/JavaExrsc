@@ -23,9 +23,10 @@ public class Principal {
 		System.out.println("0 - Salir.");
 		System.out.println("1 - Consultar todos los productos.");
 		System.out.println("2 - Consultar producto por codigo.");
-		System.out.println("3 - Insertar nuevo producto en el fichero.");
-		System.out.println("4 - Actualizar precio, cantidad y fecha de modificacion.");
-		System.out.println("5 - Eliminar producto por codigo.");
+		System.out.println("3 - Consultar por precio.");
+		System.out.println("4 - Insertar nuevo producto en el fichero.");
+		System.out.println("5 - Actualizar precio, cantidad y fecha de modificacion.");
+		System.out.println("6 - Eliminar producto por codigo.");
 
 	}
 
@@ -50,9 +51,10 @@ public class Principal {
 					int contador = 0;
 
 					while (flujoEntrada.getFilePointer() < flujoEntrada.length()) {
-						Producto producto = AccesoProducto.leerProducto(flujoEntrada);
+						Producto producto = AccesoProducto.leerFichero(flujoEntrada);
 						if (producto.getCodigo() > 0) {
 							System.out.println(listaProductos.toString());
+							Consola.escribirLista(listaProductos);
 							contador++;
 						}
 					}
@@ -81,13 +83,35 @@ public class Principal {
 					listaProducto = AccesoProducto.consultarPorCode(codigo);
 
 					System.out.println(listaProducto.toString());
-					AccesoProducto.consultarPorCode(codigo);
+//					AccesoProducto.consultarPorCode(codigo);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				break;
 			case 3:
+				int precioMin = Teclado.leerEntero("Precio Minimo: ");
+				int precioMax = Teclado.leerEntero("Precio Maximo: ");
+
+				try {
+					List<Producto> listaProducto = null;
+					listaProducto = AccesoProducto.consultarPorPrecio(precioMin, precioMax);
+					if (listaProducto.isEmpty()) {
+						System.out.println("No se encontro ningun producto entre este rango de $$.");
+					} else {
+						System.out.println("Lista con toString()");
+						System.out.println(listaProducto.toString());
+						System.out.println("Lista con 'Consola'");
+						Consola.escribirLista(listaProducto);
+					}
+
+				} catch (IOException ioe) {
+					// TODO: handle exception
+					System.out.println("Error en la Lectura. E/S");
+					ioe.printStackTrace();
+				}
+				break;
+			case 4:
 				/* int codigo = Teclado.leerEntero("Introduzca el codigo del producto: "); */
 				String nombre = Teclado.leerCadena("Introduzca el nombre del producto: ");
 				String categoria = Teclado.leerCadena("Introduzca la categoria del producto: ");
@@ -113,20 +137,20 @@ public class Principal {
 					}
 				}
 				break;
-			case 4:
+			case 5:
 				codigo = Teclado.leerEntero("");
 				fechaModificacion = Consola.leerFecha("Fecha: ");
 				cantidad = Teclado.leerEntero("");
 				precio = Teclado.leerReal("");
 				producto = new Producto(0, "", "", fechaModificacion, cantidad, precio);
 				break;
-			case 5:
+			case 6:
 
 				codigo = Teclado.leerEntero("Codigo: ");
 				try {
 					if (AccesoProducto.eliminarPorCode(codigo)) {
 						System.out.println("Se ha eliminado el producto con codigo " + codigo);
-					}else {
+					} else {
 						System.out.println("Producto Invalido.");
 					}
 				} catch (IOException e) {
