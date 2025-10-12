@@ -45,7 +45,7 @@ public class Principal {
 			case 1:
 				List<Producto> listaProductos = new ArrayList<Producto>();
 				try {
-					File fichero = new File(FICHERO);
+					File fichero = new File(FICHERO_VS);
 					flujoEntrada = new RandomAccessFile(fichero, "r");
 					flujoEntrada.seek(0);
 					int contador = 0;
@@ -53,12 +53,16 @@ public class Principal {
 					while (flujoEntrada.getFilePointer() < flujoEntrada.length()) {
 						Producto producto = AccesoProducto.leerFichero(flujoEntrada);
 						if (producto.getCodigo() > 0) {
-							System.out.println(listaProductos.toString());
-							Consola.escribirLista(listaProductos);
+							listaProductos.add(producto);
 							contador++;
 						}
 					}
-					System.out.println(contador);
+					if (listaProductos.isEmpty()) {
+						System.out.println("No hay productos en el fichero.");
+					} else {
+						Consola.escribirLista(listaProductos);
+					}
+					System.out.println("Total productos: " + contador);
 				} catch (FileNotFoundException fnfe) {
 					System.out.println("Archivo no encontrado");
 					fnfe.printStackTrace();
@@ -79,13 +83,14 @@ public class Principal {
 			case 2:
 				int codigo = Teclado.leerEntero("Codigo: ");
 				try {
-					List<Producto> listaProducto = null;
-					listaProducto = AccesoProducto.consultarPorCode(codigo);
-
-					System.out.println(listaProducto.toString());
-//					AccesoProducto.consultarPorCode(codigo);
+					List<Producto> listaProducto = AccesoProducto.consultarPorCode(codigo);
+					if (listaProducto == null || listaProducto.isEmpty()) {
+						System.out.println("No se encontró ningún producto con ese código.");
+					} else {
+						Consola.escribirLista(listaProducto);
+					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					System.out.println("Error al consultar por código.");
 					e.printStackTrace();
 				}
 				break;

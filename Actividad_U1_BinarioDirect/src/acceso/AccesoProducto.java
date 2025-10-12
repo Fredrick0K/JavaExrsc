@@ -11,7 +11,7 @@ import modelo.Producto;
 public class AccesoProducto {
 //Insertar, Actualizar con codigo, leer TODO, Leer con codigo, eliminar
 
-	private static final String FICHERO_VS = "Actividad_U1_BinarioDirect\\\\data\\\\producto.dat";
+	private static final String FICHERO_VS = "Actividad_U1_BinarioDirect\\data\\producto.dat";
 	private static final String FICHERO = "data/productos.dat";
 
 	/*
@@ -46,7 +46,7 @@ public class AccesoProducto {
 		RandomAccessFile flujoLectura = null;
 		List<Producto> listaProductos = new ArrayList<Producto>();
 		try {
-			flujoLectura = new RandomAccessFile(FICHERO, "r");
+			flujoLectura = new RandomAccessFile(FICHERO_VS, "r");
 			flujoLectura.seek(0);
 			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
 				Producto producto = leerFichero(flujoLectura);
@@ -68,7 +68,7 @@ public class AccesoProducto {
 			return false;
 		}
 
-		File file = new File(FICHERO);
+		File file = new File(FICHERO_VS);
 		flujoSalida = new RandomAccessFile(file, "rw");
 		int tamanyoFichero = (int) flujoSalida.length();
 
@@ -101,24 +101,17 @@ public class AccesoProducto {
 	public static List<Producto> consultarPorCode(int codigo) throws IOException {
 		RandomAccessFile flujoLectura = null;
 		List<Producto> listaProductos = new ArrayList<Producto>();
-		Producto producto = null;
 		try {
-			flujoLectura = new RandomAccessFile(FICHERO, "r");
+			flujoLectura = new RandomAccessFile(FICHERO_VS, "r");
 			int posicio = (codigo - 1) * Producto.TAMANYO_REGISTRO;
 			flujoLectura.seek(0);
 			if (posicio >= 0 && posicio < flujoLectura.length()) {
 				flujoLectura.seek(posicio);
 				Producto prod = leerFichero(flujoLectura);
 				if (prod.getCodigo() > 0) {
-					producto = prod;
+					listaProductos.add(prod); // <-- Aquí agregas el producto a la lista
 				}
 			}
-
-//			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
-//				Producto producto = leerProducto(flujoLectura);
-//				if (producto.getCodigo()) {
-//					listaProductos.add(producto);
-//				}
 
 		} finally {
 			if (flujoLectura != null) {
@@ -134,7 +127,7 @@ public class AccesoProducto {
 
 		try {
 
-			flujoLectura = new RandomAccessFile(FICHERO, "r");
+			flujoLectura = new RandomAccessFile(FICHERO_VS, "r");
 			flujoLectura.seek(0);
 			while (flujoLectura.getFilePointer() < flujoLectura.length()) {
 				Producto prod = leerFichero(flujoLectura);
@@ -160,7 +153,7 @@ public class AccesoProducto {
 		RandomAccessFile flujoReadyWrite = null;
 
 		try {
-			flujoReadyWrite = new RandomAccessFile(FICHERO, "rw");
+			flujoReadyWrite = new RandomAccessFile(FICHERO_VS, "rw");
 			int posicion = (codigo - 1) * Producto.TAMANYO_REGISTRO;
 			if (posicion >= 0 && posicion < flujoReadyWrite.length()) {
 				flujoReadyWrite.seek(posicion);
@@ -185,7 +178,7 @@ public class AccesoProducto {
 		boolean actualizado = false;
 		RandomAccessFile flujoReadNWrite = null;
 		try {
-			flujoReadNWrite = new RandomAccessFile(FICHERO, "rw");
+			flujoReadNWrite = new RandomAccessFile(FICHERO_VS, "rw");
 			int posicion = (codigo - 1) * Producto.TAMANYO_REGISTRO;
 			if (posicion >= 0 && posicion < flujoReadNWrite.length()) {
 				flujoReadNWrite.seek(posicion);
