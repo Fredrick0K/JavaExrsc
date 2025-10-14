@@ -1,0 +1,30 @@
+package modelo;
+
+public class Libro {
+	private int codigo;
+	private Escritor escritor;
+	private String titulo;
+	private int anyoPublicacion;
+	private int extension; // Paginas
+	private double precio;
+
+	public Libro(int codigo, Escritor escritor, String titulo, int anyoPublicacion, int extension, double precio) {
+		this.codigo = codigo;
+		this.escritor = escritor;
+		this.titulo = titulo;
+		this.anyoPublicacion = anyoPublicacion;
+		this.extension = extension;
+		this.precio = precio;
+	}
+
+	@Override
+	public String toString() {
+		return "Libro [codigo=" + codigo + ", escritor=" + escritor.getCodigo() +
+				", titulo=" + titulo + 
+				", anyoPublicacion=" + anyoPublicacion +
+				", extension=" + extension +
+				", precio=" + String.format("%.2f", precio) + "]";
+	}
+
+	
+}
