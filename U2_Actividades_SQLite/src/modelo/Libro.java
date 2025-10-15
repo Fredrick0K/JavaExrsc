@@ -6,7 +6,7 @@ public class Libro {
 	private String titulo;
 	private int anyoPublicacion;
 	private int extension; // Paginas
-	private double precio;
+	private double precio; //euro
 
 	public Libro(int codigo, Escritor escritor, String titulo, int anyoPublicacion, int extension, double precio) {
 		this.codigo = codigo;
@@ -15,6 +15,10 @@ public class Libro {
 		this.anyoPublicacion = anyoPublicacion;
 		this.extension = extension;
 		this.precio = precio;
+	}
+	
+	public Libro(int codigo) {
+		this.codigo = codigo;
 	}
 
 	@Override
@@ -25,6 +29,6 @@ public class Libro {
 				", extension=" + extension +
 				", precio=" + String.format("%.2f", precio) + "]";
 	}
-
+//String.format("%d paginas", extension)
 	
 }

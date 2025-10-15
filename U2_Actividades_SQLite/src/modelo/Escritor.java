@@ -16,6 +16,13 @@ public class Escritor {
 		this.fechaNacimiento = fechaNacimiento;
 		this.fechaFallecimiento = fechaFallecimiento;
 	}
+	public Escritor(int codigo, String nombre, String nacionalidad, Date fechaNacimiento) {
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.nacionalidad = nacionalidad;
+		this.fechaNacimiento = fechaNacimiento;
+		this.fechaFallecimiento = null;
+	}
 
 	public Escritor(int codigo) {
 		this.codigo = codigo;
@@ -23,6 +30,19 @@ public class Escritor {
 
 	public int getCodigo() {
 		return codigo;
+	}
+
+	@Override
+	public String toString() {
+		String cadenaFechaFallecimiento = "null";
+		if(fechaFallecimiento != null) {
+			cadenaFechaFallecimiento = fechaFallecimiento.toString();
+		}
+		return "Escritor [ codigo = " + codigo + 
+				", Nombre = " + nombre + 
+				", Nacionalidad = " + nacionalidad +
+				", FechaNacimiento = " + fechaNacimiento.toString() + 
+				", FechaFallecimiento = " + cadenaFechaFallecimiento + " ]";
 	}
 
 }
