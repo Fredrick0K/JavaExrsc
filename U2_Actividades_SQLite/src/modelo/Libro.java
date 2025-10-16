@@ -21,6 +21,13 @@ public class Libro {
 		this.codigo = codigo;
 	}
 
+	public Libro(String titulo2, int anyoPublicacion2, double precio2) {
+		// TODO Auto-generated constructor stub
+		this.titulo = titulo2;
+		this.anyoPublicacion = anyoPublicacion2;
+		this.precio = precio2;
+	}
+
 	@Override
 	public String toString() {
 		return "Libro [codigo=" + codigo + ", escritor=" + escritor.getCodigo() +
@@ -28,6 +35,11 @@ public class Libro {
 				", anyoPublicacion=" + anyoPublicacion +
 				", extension=" + extension +
 				", precio=" + String.format("%.2f", precio) + "]";
+	}
+	public String toStringMod() {
+		return "Libro [titulo = " + titulo + 
+				", anyoPublicacion = " + anyoPublicacion +
+				", precio = " + String.format("%.2f", precio) + "]";
 	}
 //String.format("%d paginas", extension)
 	

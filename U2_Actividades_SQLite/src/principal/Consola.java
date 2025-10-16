@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.util.List;
 import entrada.Teclado;
 //import modelo.Fecha;
+import modelo.Libro;
 
 public class Consola {
 
@@ -36,6 +37,20 @@ public class Consola {
 		}
 	}
 
+	public static <E> void escribirListaMod(List<Libro> lista) {
+		String nombreClase = lista.getFirst().getClass().getSimpleName();
+		String nombreSingular = nombreClase.toLowerCase();
+		String nombrePlural = generarPlural(nombreSingular);
+		for (Libro elemento : lista) {
+			System.out.println(elemento.toStringMod());
+		}
+		if (lista.size() == 1) {
+			System.out.println("Se ha consultado 1 " + nombreSingular + " del fichero.");
+		} else {
+			System.out.println("Se han consultado " + lista.size() + " " + nombrePlural + " del fichero.");
+		}
+	}
+	
 	/**
 	 * Lee por teclado una fecha con formato espaniol DD/MM/AAAA. Devuelve la fecha
 	 * leida.
