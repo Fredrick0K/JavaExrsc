@@ -34,7 +34,7 @@ public class AccesoEmpleado {
 			// Crear el fichero e insertar la pelicula al principio del fichero.
 			else {
 				flujoSalida1 = new ObjectOutputStream(new FileOutputStream(fichero));
-				flujoSalida1.writeObject(empleado);
+
 			}
 
 		} finally {

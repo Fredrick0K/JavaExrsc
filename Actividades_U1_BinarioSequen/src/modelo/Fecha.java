@@ -1,7 +1,8 @@
 package modelo;
 
+import java.io.Serializable;
 
-public class Fecha {
+public class Fecha implements Serializable{
 
 	private int dia;
 	private int mes;
