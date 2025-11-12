@@ -51,7 +51,8 @@ public class AccesoBanco {
 
 	}
 
-	public static int[] migrarCuentas(int sucurOld, int sucurNew) throws ClassNotFoundException, SQLException {
+	public static int[] migrarCuentas(int sucurOld, int sucurNew) 
+	throws ClassNotFoundException, SQLException {
 		// TODO Auto-generated method stub
 		Connection conexion = null;
 		int cuentasMigradas, sucurEliminadas;
