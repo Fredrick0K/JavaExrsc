@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 26 nov 2025, 12:04:36 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="filmoteca" name="modelo.Actor" optimistic-lock="none" table="actor">
+        <id name="codigo" type="java.lang.Integer">
+            <column name="codigo"/>
+            <generator class="identity"/>
+        </id>
+        <property name="nombre" type="string">
+            <column length="50" name="nombre" not-null="true" unique="true"/>
+        </property>
+        <property name="nacionalidad" type="string">
+            <column length="25" name="nacionalidad" not-null="true"/>
+        </property>
+        <property name="fechaNacimiento" type="date">
+            <column length="10" name="fecha_nacimiento" not-null="true"/>
+        </property>
+        <property name="fechaFallecimiento" type="date">
+            <column length="10" name="fecha_fallecimiento"/>
+        </property>
+        <set fetch="select" inverse="true" lazy="true" name="personajes" table="personaje">
+            <key>
+                <column name="codigo_actor" not-null="true"/>
+            </key>
+            <one-to-many class="modelo.Personaje"/>
+        </set>
+    </class>
+</hibernate-mapping>
