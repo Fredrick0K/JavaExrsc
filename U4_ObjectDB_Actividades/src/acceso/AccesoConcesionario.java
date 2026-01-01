@@ -14,7 +14,7 @@ public class AccesoConcesionario {
 		Turismo turismo;
 
 		try {
-			conexion = ObjectDBUtil.abrirConexion();
+			
 			turismo = conexion.find(Turismo.class, codigo);
 		} finally {
 			ObjectDBUtil.cerrarConexion(conexion);

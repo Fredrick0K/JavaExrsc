@@ -2,20 +2,17 @@ package titanium;
 
 import java.util.List;
 import entrada.Teclado;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.TypedQuery;
 import acceso.AccesoConcesionario;
 import acceso.ObjectDBUtil;
-import modelo.Cliente;
 import modelo.Turismo;
-import modelo.Venta;
+
 
 public class Principal {
 	private static void escribirMenu() {
-		System.out.println("0) - Salir");
-		System.out.println("1) - Consultar turismo por codigo.");
-		System.out.println("2) - Consultar Turismos");
-		System.out.println("3) - Consultar Ventas");
+		System.out.println("0 - Salir");
+		System.out.println("1 - Consultar turismo por codigo.");
+		System.out.println("2 - Consultar Turismos");
+		System.out.println("3 - Consultar Ventas");
 	}
 
 	public static void main(String[] args) {
@@ -44,6 +41,16 @@ public class Principal {
 
 			case 2:
 				List<Turismo> lista = AccesoConcesionario.consultarAll();
+				if (lista.isEmpty()) {
+					System.out.println("No hay turismos registrados.");
+				} else {
+					for (Turismo t : lista) {
+						System.out.println(t);
+					}
+				}
+				break;
+			case 3:
+				System.out.println("No implementado todavia");
 				break;
 
 			}
