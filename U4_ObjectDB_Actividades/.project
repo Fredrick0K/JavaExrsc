@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>U3_Actividad_Hibernate</name>
+	<name>U4_ObjectDB_Actividades</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -16,7 +16,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1767292930388</id>
+			<id>1767182571002</id>
 			<name></name>
 			<type>30</type>
 			<matcher>
