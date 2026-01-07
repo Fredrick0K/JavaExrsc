@@ -69,6 +69,7 @@ public class Principal {
 				}			
 				break;
 			case 4:
+				
 				String nacionalidad = Teclado.leerCadena("Nacionalidad: ");
 				
 				List<Actor> listaActores = AccesoFilmoteca.consultarAuthorBynationality(nacionalidad);

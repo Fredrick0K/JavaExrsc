@@ -35,6 +35,7 @@ public class AccesoFilmoteca {
 
 			String hql = "select pe from Pelicula pe where codigo = ?1";
 			SelectionQuery<Pelicula> sentencia = sesion.createSelectionQuery(hql, Pelicula.class);
+	
 
 			sentencia.setParameter(1, codigo);
 			peli = sentencia.getSingleResultOrNull();
