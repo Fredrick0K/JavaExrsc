@@ -21,17 +21,26 @@ public class Cliente {
 	private Domicilio domicilioResidencia;
 	private String telefono;
 	private String correo;
-	
+
 	@OneToMany
 	private List<Venta> ventas;
-	
+
 	public Cliente() {
 		this.ventas = new LinkedList<Venta>();
 	}
-	
-	public Cliente(String nombre, Date fechaNacimiento, 
-	               Domicilio domicilioResidencia, String telefono, String correo) {
+
+	public Cliente(String nombre, Date fechaNacimiento,
+			Domicilio domicilioResidencia, String telefono, String correo) {
 		this.nombre = nombre;
+		this.fechaNacimiento = fechaNacimiento;
+		this.domicilioResidencia = domicilioResidencia;
+		this.telefono = telefono;
+		this.correo = correo;
+		this.ventas = new LinkedList<Venta>();
+	}
+
+	public Cliente(Date fechaNacimiento,
+			Domicilio domicilioResidencia, String telefono, String correo) {
 		this.fechaNacimiento = fechaNacimiento;
 		this.domicilioResidencia = domicilioResidencia;
 		this.telefono = telefono;
@@ -41,12 +50,12 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente {C�digo = " + codigo + 
-		       ", Nombre = " + nombre + 
-		       ", FechaNacimiento = " + fechaNacimiento.toString() + 
-		       ", DomicilioResidencia = " + domicilioResidencia.toString() + 
-		       ", Tel�fono = " + telefono + 
-		       ", Correo = " + correo + "}";
+		return "Cliente {C�digo = " + codigo +
+				", Nombre = " + nombre +
+				", FechaNacimiento = " + fechaNacimiento.toString() +
+				", DomicilioResidencia = " + domicilioResidencia.toString() +
+				", Tel�fono = " + telefono +
+				", Correo = " + correo + "}";
 	}
 
 	public long getCodigo() {
@@ -96,10 +105,10 @@ public class Cliente {
 	public void setCorreo(String correo) {
 		this.correo = correo;
 	}
-	
+
 	public boolean insertar(Venta venta) {
 		boolean insertada = ventas.add(venta);
 		return insertada;
 	}
-	
+
 }

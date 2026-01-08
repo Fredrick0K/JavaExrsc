@@ -9,7 +9,7 @@ import jakarta.persistence.OneToMany;
 
 @Entity
 public class Turismo {
-	
+
 	@Id
 	@GeneratedValue
 	private long codigo;
@@ -18,17 +18,17 @@ public class Turismo {
 	private int anioFabricacion;
 	private int numeroPlazas;
 	private int capacidadMaletero; // litros
-	private double precio;         // euros
-	
+	private double precio; // euros
+
 	@OneToMany
 	private List<Venta> ventas;
-	
+
 	public Turismo() {
 		this.ventas = new LinkedList<Venta>();
 	}
-	
-	public Turismo(String fabricante, String modelo, 
-	               int anioFabricacion, int numeroPlazas, int capacidadMaletero, double precio) {
+
+	public Turismo(String fabricante, String modelo,
+			int anioFabricacion, int numeroPlazas, int capacidadMaletero, double precio) {
 		this.fabricante = fabricante;
 		this.modelo = modelo;
 		this.anioFabricacion = anioFabricacion;
@@ -40,13 +40,13 @@ public class Turismo {
 
 	@Override
 	public String toString() {
-		return "Turismo {C�digo = " + codigo + 
-		       ", Fabricante = " + fabricante + 
-		       ", Modelo = " + modelo + 
-		       ", A�oFabricaci�n = " + anioFabricacion + 
-		       ", N�meroPlazas = " + numeroPlazas + 
-		       ", CapacidadMaletero = " + capacidadMaletero + 
-		       ", Precio = " + String.format("%.2f", precio) + "}";
+		return "Turismo {Codigo = " + codigo +
+				", Fabricante = " + fabricante +
+				", Modelo = " + modelo +
+				", AnyoFabricacion = " + anioFabricacion +
+				", NumeroPlazas = " + numeroPlazas +
+				", CapacidadMaletero = " + capacidadMaletero +
+				", Precio = " + String.format("%.2f", precio) + "}";
 	}
 
 	public long getCodigo() {
@@ -104,10 +104,10 @@ public class Turismo {
 	public void setPrecio(double precio) {
 		this.precio = precio;
 	}
-	
+
 	public boolean insertar(Venta venta) {
 		boolean insertada = ventas.add(venta);
 		return insertada;
 	}
-	
+
 }
