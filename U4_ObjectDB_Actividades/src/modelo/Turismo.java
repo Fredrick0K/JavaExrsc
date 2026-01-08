@@ -23,9 +23,12 @@ public class Turismo {
 	@OneToMany
 	private List<Venta> ventas;
 	
-	public Turismo(long codigo, String fabricante, String modelo, 
+	public Turismo() {
+		this.ventas = new LinkedList<Venta>();
+	}
+	
+	public Turismo(String fabricante, String modelo, 
 	               int anioFabricacion, int numeroPlazas, int capacidadMaletero, double precio) {
-		this.codigo = codigo;
 		this.fabricante = fabricante;
 		this.modelo = modelo;
 		this.anioFabricacion = anioFabricacion;
@@ -37,11 +40,11 @@ public class Turismo {
 
 	@Override
 	public String toString() {
-		return "Turismo {Código = " + codigo + 
+		return "Turismo {Cï¿½digo = " + codigo + 
 		       ", Fabricante = " + fabricante + 
 		       ", Modelo = " + modelo + 
-		       ", AñoFabricación = " + anioFabricacion + 
-		       ", NúmeroPlazas = " + numeroPlazas + 
+		       ", Aï¿½oFabricaciï¿½n = " + anioFabricacion + 
+		       ", Nï¿½meroPlazas = " + numeroPlazas + 
 		       ", CapacidadMaletero = " + capacidadMaletero + 
 		       ", Precio = " + String.format("%.2f", precio) + "}";
 	}
@@ -104,9 +107,6 @@ public class Turismo {
 	
 	public boolean insertar(Venta venta) {
 		boolean insertada = ventas.add(venta);
-		if (insertada) {
-			venta.setTurismo(this);
-		}
 		return insertada;
 	}
 	

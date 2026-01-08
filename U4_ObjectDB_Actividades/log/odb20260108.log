@@ -1,0 +1,43 @@
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-01-08 15:16:38 #1 store] 
+Database 'C:\Users\Mohammad\Documents\Eclipse Workspace\JavaExrsc\U4_ObjectDB_Actividades\data\concesionario.odb' is opened by 1844@DESKTOP-4B4VG9G
+
+[2026-01-08 15:16:38 #2 store] 
+Configuration path: ?
+
+[2026-01-08 15:16:38 #3 type] 
+Type modelo.Cliente is not enhanced.
+
+[2026-01-08 15:16:38 #4 type] 
+Type modelo.Venta is not enhanced.
+
+[2026-01-08 15:16:38 #5 type] 
+Type modelo.Domicilio is not enhanced.
+
+[2026-01-08 15:16:38 #6 type] 
+Type modelo.Turismo is not enhanced.
+
+------------------------------------------------------------------------------------------------------------------------
+
+[2026-01-08 15:17:11 #1 store] 
+Database 'C:\Users\Mohammad\Documents\Eclipse Workspace\JavaExrsc\U4_ObjectDB_Actividades\data\concesionario.odb' is opened by 14632@DESKTOP-4B4VG9G
+
+[2026-01-08 15:17:11 #2 store] 
+Configuration path: ?
+
+[2026-01-08 15:17:11 #3 type] 
+Type modelo.Turismo is not enhanced.
+
+[2026-01-08 15:17:11 #4 type] 
+Type modelo.Venta is not enhanced.
+
+[2026-01-08 15:17:11 #5 type] 
+Type modelo.Cliente is not enhanced.
+
+[2026-01-08 15:17:11 #6 type] 
+Type modelo.Domicilio is not enhanced.
+
+[2026-01-08 15:17:11 #7 store] 
+Database 'C:\Users\Mohammad\Documents\Eclipse Workspace\JavaExrsc\U4_ObjectDB_Actividades\data\concesionario.odb' is closed by 14632@DESKTOP-4B4VG9G
+

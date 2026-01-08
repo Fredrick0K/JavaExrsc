@@ -22,6 +22,9 @@ public class Venta {
 	private String metodoPago;
 	private String matricula;
 	
+	public Venta() {
+	}
+	
 	public Venta(Cliente cliente, Turismo turismo, Date fecha, 
 	             double importe, String metodoPago, String matricula) {
 		this.cliente = cliente;
@@ -34,12 +37,12 @@ public class Venta {
 
 	@Override
 	public String toString() {
-		return "Venta {CódigoCliente = " + cliente.getCodigo() + 
-		       ", CódigoTurismo = " + turismo.getCodigo() + 
+		return "Venta {Cï¿½digoCliente = " + cliente.getCodigo() + 
+		       ", Cï¿½digoTurismo = " + turismo.getCodigo() + 
 		       ", Fecha = " + fecha.toString() + 
 		       ", Importe = " + String.format("%.2f", importe) + 
-		       ", MétodoPago = " + metodoPago + 
-		       ", Matrícula = " + matricula + "}";
+		       ", Mï¿½todoPago = " + metodoPago + 
+		       ", Matrï¿½cula = " + matricula + "}";
 	}
 
 	public Cliente getCliente() {
@@ -48,6 +51,7 @@ public class Venta {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
+		cliente.insertar(this);
 	}
 
 	public Turismo getTurismo() {
@@ -56,6 +60,7 @@ public class Venta {
 
 	public void setTurismo(Turismo turismo) {
 		this.turismo = turismo;
+		turismo.insertar(this);
 	}
 
 	public Date getFecha() {

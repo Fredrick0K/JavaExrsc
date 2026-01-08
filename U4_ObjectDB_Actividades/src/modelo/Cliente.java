@@ -25,9 +25,12 @@ public class Cliente {
 	@OneToMany
 	private List<Venta> ventas;
 	
-	public Cliente(long codigo, String nombre, Date fechaNacimiento, 
+	public Cliente() {
+		this.ventas = new LinkedList<Venta>();
+	}
+	
+	public Cliente(String nombre, Date fechaNacimiento, 
 	               Domicilio domicilioResidencia, String telefono, String correo) {
-		this.codigo = codigo;
 		this.nombre = nombre;
 		this.fechaNacimiento = fechaNacimiento;
 		this.domicilioResidencia = domicilioResidencia;
@@ -38,11 +41,11 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente {Código = " + codigo + 
+		return "Cliente {Cï¿½digo = " + codigo + 
 		       ", Nombre = " + nombre + 
 		       ", FechaNacimiento = " + fechaNacimiento.toString() + 
 		       ", DomicilioResidencia = " + domicilioResidencia.toString() + 
-		       ", Teléfono = " + telefono + 
+		       ", Telï¿½fono = " + telefono + 
 		       ", Correo = " + correo + "}";
 	}
 
@@ -96,9 +99,6 @@ public class Cliente {
 	
 	public boolean insertar(Venta venta) {
 		boolean insertada = ventas.add(venta);
-		if (insertada) {
-			venta.setCliente(this);
-		}
 		return insertada;
 	}
 	
