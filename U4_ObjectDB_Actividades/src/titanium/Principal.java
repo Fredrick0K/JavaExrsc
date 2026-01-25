@@ -14,10 +14,10 @@ public class Principal {
 		System.out.println("0 - Salir");
 		System.out.println("1 - Consultar turismo por codigo.");
 		System.out.println("2 - Consultar Turismos");
-		System.out.println("3 - Actualizar la fecha de nacimiento, el domicilio de residencia,\r\n" + //
-				"el teléfono y el correo de un cliente de la base de datos\r\n" + //
-				"por código.\r");
+		System.out.println("3 - Actualizar la fecha de nacimiento, el domicilio de residencia,"
+		+ "el teléfono y el correo de un cliente de la base de datospor código.");
 		System.out.println("4 - Insertar Turismo");
+		System.out.println("5 - Eliminar Turismos por rango de anyos.");
 	}
 
 	public static void main(String[] args) {
@@ -71,6 +71,13 @@ public class Principal {
 					String correo = Teclado.leerCadena("Correo: ");
 					Cliente cliente = new Cliente(nacim, home, telefono, correo);
 
+					boolean updated = AccesoConcesionario.actualizarClienteByCode(code, cliente);
+					
+					if(updated){
+						System.out.println("Se ha actualizado correctamente!");
+					}else{
+						System.err.println("No se ha encontrado un cliente con este codigo.");
+					}					
 					break;
 				case 4:
 					String made = Teclado.leerCadena("Fabricante: ");
@@ -89,6 +96,16 @@ public class Principal {
 					}
 
 					break;
+					case 5:
+						int minYear = Teclado.leerEntero("Anyo minimo de fabricacion: ");
+						int maxyear = Teclado.leerEntero("Anyo maximo de fabricacion: ");
+						int slimed = AccesoConcesionario.eliminarByYear(minYear, maxyear);
+						if(slimed == 0){
+							System.out.println("No cars where found between these years");
+						}else{
+							System.out.println(slimed + " cars where absolute ringed, slimed, banged.");
+						}
+						break;
 			}
 		} while (opcion != 0);
 	}
