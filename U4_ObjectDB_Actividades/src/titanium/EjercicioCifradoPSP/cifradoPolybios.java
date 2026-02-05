@@ -13,24 +13,34 @@ public class cifradoPolybios {
     private static int cifrar(String palabra) {
         int cifrado = 0;
         String letra;
-        for (int i = 0; palabra.length() > i; i++) {
-            letra = String.valueOf(palabra.charAt(i));
-        }
-        //This for find the match for something
-        for (int i = 0; i < MATRIX.length; i++) {
-            for (int j = 0; j < MATRIX[i].length; j++) {
-                if (MATRIX[i][j].equals(i)) {
-                    System.out.println("Found at row " + i + ", column " + j);
-                    // Optionally break if only first match is needed
+        int fila, columna;
+        palabra = palabra.toUpperCase();
+        for (int i = 0; i < palabra.length(); i++) {
+            fila = -1;
+            columna = -1;
+            letra = palabra.substring(i, i + 1);
+            for (int j = 0; j < 5 && fila == -1; j++) {
+                for (int k = 0; k < 5 && columna == -1; k++) {
+                    if (MATRIX[j][k].contains(letra)) {
+                        fila = j;
+                        columna = k;
+                    }
                 }
+            }
+            if (fila != -1 && columna != -1) {
+                fila++; columna++;
             }
         }
         return cifrado;
     }
 
-    private static String descifrar(int cifrada) {
-        String frase = "";
-        return frase;
+    private static String descifrar(String palabra) {
+        String letra;
+        int fila, columna;
+        for(int i = 0; i < palabra.length(); i = i + 2){
+            letra = palabra;
+        }
+        return null;
     }
 
     private static void escribirMenu() {
@@ -58,8 +68,8 @@ public class cifradoPolybios {
 
                     break;
                 case 2:
-                    String descifrada = descifrar(cifrada);
-                    System.out.println("Palabra descifrada: " + descifrada);
+                    String palCifrada = Teclado.leerCadena("Escribe palabra a descifrar: ");
+
                     break;
             }
 
