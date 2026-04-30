@@ -1,9 +1,0 @@
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\acceso\AccesoConcesionario.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\acceso\ObjectDBUtil.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\modelo\Cliente.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\modelo\Domicilio.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\modelo\Turismo.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\modelo\Venta.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\modelo\VentaId.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\titanium\PoblarDB.java
-C:\Users\andro\AntigravityGit\JavaExrsc\U4_ObjectDB_Actividades\src\titanium\Principal.java
