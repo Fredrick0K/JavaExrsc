@@ -76,10 +76,10 @@ class ProgramDB
                 case 1:
                     var list = DatabaseAccess.GetAllVehicules();
                     int i = 1;
-                    foreach (var v in list)
+                    foreach (var va in list)
                     {
                         i++;
-                        WriteObject(v, i);
+                        WriteObject(va, i);
                     }
                     break;
                 case 2:
