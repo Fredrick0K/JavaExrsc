@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 26 nov 2025, 12:04:36 by Hibernate Tools 6.5.1.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class catalog="filmoteca" name="modelo.Personaje" optimistic-lock="none" table="personaje">
+        <composite-id class="modelo.PersonajeId" name="id">
+            <key-property name="codigoActor" type="int">
+                <column name="codigo_actor"/>
+            </key-property>
+            <key-property name="codigoPelicula" type="int">
+                <column name="codigo_pelicula"/>
+            </key-property>
+        </composite-id>
+        <many-to-one class="modelo.Actor" fetch="select" insert="false" name="actor" update="false">
+            <column name="codigo_actor" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="modelo.Pelicula" fetch="select" insert="false" name="pelicula" update="false">
+            <column name="codigo_pelicula" not-null="true"/>
+        </many-to-one>
+        <property name="salario" type="int">
+            <column name="salario" not-null="true" precision="9" scale="0"/>
+        </property>
+        <property name="nombre" type="string">
+            <column length="50" name="nombre" not-null="true"/>
+        </property>
+        <property name="rol" type="string">
+            <column length="20" name="rol" not-null="true"/>
+        </property>
+        <property name="descripcion" type="string">
+            <column length="100" name="descripcion"/>
+        </property>
+    </class>
+</hibernate-mapping>

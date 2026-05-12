@@ -5,5 +5,10 @@
 	<classpathentry kind="lib" path="c:/Users/Mohammad/Desktop/libraries/teclado.jar"/>
 	<classpathentry kind="lib" path="c:/Users/Mohammad/Documents/Eclipse Workspace/JavaExrsc/U4_ObjectDB_Actividades/lib/jakarta.persistence-api-3.1.0.jar"/>
 	<classpathentry kind="lib" path="c:/Users/Mohammad/Documents/Eclipse Workspace/JavaExrsc/U4_ObjectDB_Actividades/lib/objectdb-jk-2.9.4.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="lib/teclado.jar"/>
+	<classpathentry kind="lib" path="lib/jakarta.persistence-api-3.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/objectdb-jk-2.9.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

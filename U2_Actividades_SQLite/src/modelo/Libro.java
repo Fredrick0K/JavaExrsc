@@ -38,7 +38,7 @@ public class Libro {
 	}
 	public String toStringMod() {
 		return "Libro [titulo = " + titulo + 
-				", anyoPublicacion = " + anyoPublicacion +
+				", año de publicacion = " + anyoPublicacion +
 				", precio = " + String.format("%.2f", precio) + "]";
 	}
 //String.format("%d paginas", extension)

@@ -37,6 +37,9 @@ public class PoblarDB {
 		Turismo turismo1 = new Turismo(10, "Seat", "Ibiza", 2022, 5, 355, 18500.00);
 		Turismo turismo2 = new Turismo(20, "Ford", "Focus", 2021, 5, 375, 22150.50);
 		Turismo turismo3 = new Turismo(30, "Audi", "A4", 2023, 5, 480, 45000.00);
+		Turismo turismo1 = new Turismo(1, "Seat", "Ibiza", 2022, 5, 355, 18500.00);
+		Turismo turismo2 = new Turismo(2, "Ford", "Focus", 2021, 5, 375, 22150.50);
+		Turismo turismo3 = new Turismo(3, "Audi", "A4", 2023, 5, 480, 45000.00);
 
 		Date fechaVenta1 = generarFecha(2024, 3, 1);
 		Venta venta1 = new Venta(cliente1, turismo1, fechaVenta1, turismo1.getPrecio(), "Tarjeta", "M1234ABC");
